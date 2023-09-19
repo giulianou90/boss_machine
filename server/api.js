@@ -38,8 +38,28 @@ apiRouter.get('/minions/:minionId', (req,res,next)=>{
         res.status(400).send()
     }
 });
-    
 
+//update a single minion by id:
+apiRouter.put('/minions/:minionId', (req,res,next)=>{
+    const newInstance = req.query;
+    const update = updateInstanceInDatabase('minions',newInstance);
+    if(update){   
+        res.send(update);
+    }else{
+        res.status(400).send()
+    }
+})
+    
+//delete a single minion by id:
+apiRouter.delete('/minions/:minionId', (req,res,next)=>{
+    const id = req.params.minionId;
+    const deleteItem = deleteFromDatabasebyId('minions',id);
+    if(deleteItem){
+        res.status(204).send();
+    }else{
+        res.status(404).send('Could not delete the specified item!');
+    }
+})
 
 
 
