@@ -31,6 +31,10 @@ const PORT = process.env.PORT || 4001;
 const apiRouter = require('./server/api');
 app.use('/api', apiRouter);
 
+//Mounting ideas router to divide the API in smaller blocks
+const ideasRouter = require ('./server/ideas');
+app.use('/api/ideas', ideasRouter);
+
 
 
 // This conditional is here for testing purposes:
