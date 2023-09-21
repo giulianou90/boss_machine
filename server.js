@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 const morgan = require('morgan')
 
-app.use(bodyParser.json());
-app.use(cors());
 app.use(morgan('tiny'));
 //app.use('/public',express.static('public')); WHY THIS DOES NOT WORK?
 app.use('/public', express.static('public'));
@@ -22,18 +20,21 @@ const PORT = process.env.PORT || 4001;
 
 
 // Add middleware for handling CORS requests from index.html
-
+app.use(cors());
 
 // Add middware for parsing request bodies here:
-
+app.use(bodyParser.json());
 
 // Mount your existing apiRouter below at the '/api' path.
 const apiRouter = require('./server/api');
 app.use('/api', apiRouter);
 
-//Mounting ideas router to divide the API in smaller blocks
+//Mounting ideas and meetings routers to divide the API in smaller blocks
 const ideasRouter = require ('./server/ideas');
 app.use('/api/ideas', ideasRouter);
+
+const meetingsRouter = require ('./server/meetings');
+app.use('/api/meetings', meetingsRouter);
 
 
 
