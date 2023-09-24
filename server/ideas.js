@@ -11,6 +11,7 @@ const {
     deleteFromDatabasebyId,
     deleteAllFromDatabase,
   } = require('./db');
+const checkMillionDollarIdea = require('./checkMillionDollarIdea');
 
 //get an array of all ideas:
 ideasRouter.get('/',(req,res,next)=>{
@@ -18,7 +19,7 @@ ideasRouter.get('/',(req,res,next)=>{
   });
 
 //create a new idea and save it to the database:
-ideasRouter.post('/', (req,res,next)=>{
+ideasRouter.post('/', checkMillionDollarIdea, (req,res,next)=>{
     if(req.query.name && req.query.description && req.query.weeklyRevenue && req.query.numWeeks){
         const newObject = {'id':'', 'name':req.query.name, 'description': req.query.description,
                           'weeklyRevenue': req.query.weeklyRevenue,'numWeeks': req.query.numWeeks};
@@ -40,7 +41,7 @@ ideasRouter.get('/:ideaId', (req,res,next)=>{
 });
 
 //update a single idea by id:
-ideasRouter.put('/:ideaId', (req,res,next)=>{
+ideasRouter.put('/:ideaId', checkMillionDollarIdea, (req,res,next)=>{
     const newInstance = req.query;
     const update = updateInstanceInDatabase('ideas',newInstance);
     if(update){   
