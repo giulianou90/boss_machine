@@ -23,7 +23,7 @@ ideasRouter.post('/', checkMillionDollarIdea, (req,res,next)=>{
     if(req.query.name && req.query.description && req.query.weeklyRevenue && req.query.numWeeks){
         const newObject = {'id':'', 'name':req.query.name, 'description': req.query.description,
                           'weeklyRevenue': req.query.weeklyRevenue,'numWeeks': req.query.numWeeks};
-        res.send(addToDatabase('ideas', newObject));
+        res.status(201).send(addToDatabase('ideas', newObject));
     }else{
         res.status(400).send()
     }
@@ -36,7 +36,7 @@ ideasRouter.get('/:ideaId', (req,res,next)=>{
     if(getById){
         res.send(getById)
     }else{
-        res.status(400).send()
+        res.status(404).send()
     }
 });
 
@@ -45,9 +45,9 @@ ideasRouter.put('/:ideaId', checkMillionDollarIdea, (req,res,next)=>{
     const newInstance = req.query;
     const update = updateInstanceInDatabase('ideas',newInstance);
     if(update){   
-        res.send(update);
+        res.status(201).send(update);
     }else{
-        res.status(400).send()
+        res.status(404).send()
     }
 });
 

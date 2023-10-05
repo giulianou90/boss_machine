@@ -1,9 +1,9 @@
 const checkMillionDollarIdea = (req,res,next) => {
     const totalValueOfIdea = req.query.weeklyRevenue*req.query.numWeeks;
     if(totalValueOfIdea>=1000000){
-        next()
+        return next();
     }else{
-        res.send("Not a million dollar idea!");
+        res.status(400).send("Not a million dollar idea!");
     }
 };
 
