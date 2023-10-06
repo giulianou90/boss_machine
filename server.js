@@ -29,13 +29,15 @@ app.use(bodyParser.json());
 const apiRouter = require('./server/api');
 app.use('/api', apiRouter);
 
-//Mounting ideas and meetings routers to divide the API in smaller blocks
+//Mounting ideas, meetings and work routers to divide the API in smaller blocks
 const ideasRouter = require ('./server/ideas');
 app.use('/api/ideas', ideasRouter);
 
 const meetingsRouter = require ('./server/meetings');
 app.use('/api/meetings', meetingsRouter);
 
+const workRouter = require ('./server/work');
+app.use('/api/minions', workRouter);
 
 
 // This conditional is here for testing purposes:
